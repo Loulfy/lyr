@@ -13,3 +13,17 @@ find_package(Vulkan)
 
 # C++17
 set(CMAKE_CXX_STANDARD 17)
+
+# HEADERS
+include_directories(libs/glfw/include libs/plog/include ${Vulkan_INCLUDE_DIR})
+
+# FILES
+file(GLOB_RECURSE SOURCES src/*.cpp)
+file(GLOB_RECURSE HEADERS src/*.hpp)
+
+# PROJECT
+add_library(lyr SHARED ${SOURCES} ${HEADERS})
+target_link_libraries(lyr ${Vulkan_LIBRARY} glfw)
+
+# TEST
+add_subdirectory(test)
